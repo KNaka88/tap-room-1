@@ -5,14 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { EditKegComponent } from './edit-keg.component';
 import { NewKegComponent } from './new-keg.component';
 import { KegListComponent } from './keg-list.component';
-// import { CheckVolumePipe } from './check-volume.pipe';
+import { CheckVolumePipe } from './check-volume.pipe';
 
 @NgModule({
   imports: [ BrowserModule, FormsModule],
-  declarations: [ AppComponent, EditKegComponent, NewKegComponent, KegListComponent],
+  declarations: [ AppComponent, EditKegComponent, NewKegComponent, KegListComponent, CheckVolumePipe],
   bootstrap: [ AppComponent ]
 })
 
 export class AppModule { }
-
-//add CheckVolumePipe to NgModule

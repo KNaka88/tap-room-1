@@ -4,9 +4,14 @@ import { Keg } from './keg.model';
 @Component({
   selector: 'keg-list',
   template:`
+
+    <select (change)="onChange($event.target.value)">
+      <option value="allKegs" selected="selected">All Kegs</option>
+      <option value="lessthan10">Less than 10</option>
+    </select>
     <ul>
       <div class='row'>
-        <div *ngFor='let keg of childKegList' class='col-md-4 product'>
+        <div [style.background-color]="addColor(keg)" *ngFor='let keg of childKegList | checkVolume:filterByVolume' class='col-md-4 product'>
           <p>Brand: {{keg.brand}}</p>
           <p>Price:  &#36;{{keg.price}}</p>
           <p>Alcohol Content: {{keg.alcohol}}&#37;</p>
@@ -26,12 +31,27 @@ import { Keg } from './keg.model';
 export class KegListComponent {
   @Input() childKegList: Keg[];
   @Output() clickSender = new EventEmitter();
+  filterByVolume: string = "allKegs";
 
   editKeg(keg: Keg){
     this.clickSender.emit(keg);
   }
 
   buyPint(keg: Keg){
-    keg.pints = keg.pints -1;
+    if(keg.pints != 0){
+      keg.pints = keg.pints -1;
+    }
   }
+
+  onChange(optionFromMenu){
+    this.filterByVolume= optionFromMenu;
+    console.log(this.filterByVolume);
+  }
+
+  addColor(keg){
+    if(keg.price >= 4){
+      return "red";
+    }
+  }
+
 }
